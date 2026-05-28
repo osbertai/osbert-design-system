@@ -1,0 +1,2372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Regulars - Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Figtree:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   REGULARS - DESIGN SYSTEM TOKENS
+   ============================================================ */
+:root {
+  /* ---------- CORE COLOURS (LOCKED) ---------- */
+  --warm-cream:       #F5F1E8;
+  --charcoal:         #141414;
+  --revenue-green:    #1F6B45;
+
+  /* ---------- SUPPORTING UI COLOURS ---------- */
+  --card-cream:       #FBF8F2;
+  --soft-border:      #D8CFC1;
+  --muted-text:       #6B675F;
+  --attention-amber:  #C9822B;
+  --recovery-red:     #9E2F2F;
+
+  /* ---------- DERIVED TINTS / STATES ---------- */
+  --cream-deep:       #ECE5D5;       /* hover on cream surfaces */
+  --cream-sunk:       #E4DCC8;       /* pressed / active */
+  --charcoal-soft:    #2A2A28;       /* secondary headings */
+  --charcoal-12:      rgba(20,20,20,0.12);
+  --charcoal-06:      rgba(20,20,20,0.06);
+
+  --green-deep:       #174F33;       /* primary hover */
+  --green-press:      #103A25;
+  --green-soft:       #DCE9E1;       /* sent / soft success surfaces */
+  --green-strong-bg:  #C7DCCC;       /* returned, recovered */
+  --green-tint:       #EAF1EB;       /* alert panel bg */
+  --green-line:       #B5CFBE;
+
+  --amber-deep:       #A86A1F;
+  --amber-soft:       #F4E4C7;
+  --amber-tint:       #FBEFD5;
+  --amber-line:       #E6CC95;
+
+  --red-deep:         #82211F;
+  --red-soft:         #EBCFCC;
+  --red-tint:         #F4DEDB;
+  --red-line:         #D6A8A3;
+
+  --neutral-soft:     #E7E1D2;       /* skipped neutral */
+  --neutral-line:     #C9C0AE;
+
+  --info-bg:          #E4E8E1;       /* warm slate-cream */
+  --info-line:        #B4BBA6;
+  --info-text:        #3F4838;
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --font-display: "Newsreader", "Charter", "Iowan Old Style", Georgia, serif;
+  --font-ui:      "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* ---------- SPACING (4px base) ---------- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px;
+  --s-12: 48px; --s-16: 64px; --s-20: 80px; --s-24: 96px;
+  --xs: 4px; --sm: 8px; --md: 16px; --lg: 24px;
+  --xl: 40px; --2xl: 64px; --3xl: 96px;
+
+  /* ---------- RADIUS ---------- */
+  --r-1: 4px;   /* inputs, table rows */
+  --r-2: 6px;   /* small chips */
+  --r-3: 10px;  /* buttons */
+  --r-4: 14px;  /* cards */
+  --r-5: 20px;  /* panels, badges (pill) */
+  --r-pill: 999px;
+
+  /* ---------- WARM-TINTED SHADOWS ---------- */
+  --shadow-subtle: 0 1px 2px rgba(74, 56, 28, 0.06),
+                   0 1px 1px rgba(74, 56, 28, 0.04);
+  --shadow-medium: 0 4px 10px rgba(74, 56, 28, 0.08),
+                   0 2px 4px rgba(74, 56, 28, 0.05);
+  --shadow-strong: 0 18px 40px rgba(56, 42, 20, 0.16),
+                   0 6px 14px rgba(56, 42, 20, 0.08);
+
+  /* ---------- MOTION ---------- */
+  --ease-standard: cubic-bezier(0.32, 0.08, 0.24, 1);
+  --ease-entrance: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --ease-exit:     cubic-bezier(0.4, 0, 0.6, 1);
+  --d-instant: 0ms;
+  --d-fast: 100ms;
+  --d-normal: 200ms;
+  --d-slow: 300ms;
+  --d-deliberate: 400ms;
+
+  /* ---------- LAYOUT WIDTHS ---------- */
+  --w-dash:    1200px;
+  --w-marketing: 1080px;
+  --w-narrow:  520px;
+}
+
+/* ============================================================
+   PAGE SHELL - itself follows the system
+   ============================================================ */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+em, i { font-style: normal; }
+body {
+  background: var(--warm-cream);
+  color: var(--charcoal);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--s-16) var(--s-10) var(--s-24);
+}
+
+/* ---------- DOC TYPE STYLES ---------- */
+h1.doc-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 76px;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  margin: 0 0 var(--s-4);
+}
+h1.doc-title em {
+  font-weight: 300;
+  color: var(--revenue-green);
+}
+.doc-sub {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  color: var(--muted-text);
+  max-width: 60ch;
+  margin: 0 0 var(--s-3);
+}
+.doc-meta {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  margin-bottom: var(--s-10);
+}
+
+section.block {
+  margin-top: var(--s-20);
+  padding-top: var(--s-12);
+  border-top: 1px solid var(--soft-border);
+}
+section.block:first-of-type { border-top: 0; padding-top: 0; }
+
+.section-head {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--s-10);
+  margin-bottom: var(--s-10);
+  align-items: baseline;
+}
+.section-head .num {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--muted-text);
+  text-transform: uppercase;
+}
+.section-head .num b { color: var(--charcoal); font-weight: 700; }
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s-3);
+}
+.section-head p {
+  font-size: 15px;
+  color: var(--muted-text);
+  max-width: 56ch;
+  margin: 0;
+}
+
+.label-row {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  margin: var(--s-10) 0 var(--s-4);
+}
+
+/* ---------- CARDS (system component) ---------- */
+.card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  padding: var(--s-6);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* ============================================================
+   SECTION: COLOURS
+   ============================================================ */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+}
+.swatch {
+  border-radius: var(--r-4);
+  border: 1px solid var(--soft-border);
+  overflow: hidden;
+  background: var(--card-cream);
+  box-shadow: var(--shadow-subtle);
+}
+.swatch .chip {
+  height: 140px;
+  border-bottom: 1px solid var(--soft-border);
+}
+.swatch .meta {
+  padding: var(--s-4) var(--s-5) var(--s-5);
+}
+.swatch .name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 2px;
+}
+.swatch .hex {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted-text);
+  letter-spacing: 0.04em;
+}
+.swatch .use {
+  margin-top: var(--s-3);
+  font-size: 13px;
+  color: var(--muted-text);
+  line-height: 1.5;
+}
+
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+.support-swatch {
+  border: 1px solid var(--soft-border);
+  background: var(--card-cream);
+  border-radius: var(--r-3);
+  overflow: hidden;
+}
+.support-swatch .chip { height: 70px; border-bottom: 1px solid var(--soft-border); }
+.support-swatch .meta { padding: var(--s-3) var(--s-4) var(--s-4); }
+.support-swatch .name { font-size: 13px; font-weight: 500; margin-bottom: 2px; }
+.support-swatch .hex { font-family: var(--font-mono); font-size: 11px; color: var(--muted-text); }
+
+.tint-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+.tint {
+  border-radius: var(--r-2);
+  border: 1px solid var(--soft-border);
+  padding: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--charcoal);
+  min-height: 78px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.tint .tname { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-text); }
+.tint .thex { font-size: 11px; }
+
+/* ============================================================
+   SECTION: TYPE
+   ============================================================ */
+.type-spec {
+  display: grid;
+  grid-template-columns: 180px 1fr 220px;
+  gap: var(--s-6);
+  align-items: baseline;
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--soft-border);
+}
+.type-spec:first-child { border-top: 0; }
+.type-spec .meta {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  padding-top: 14px;
+}
+.type-spec .meta b { font-family: var(--font-ui); color: var(--charcoal); font-weight: 700; display:block; font-size: 13px; letter-spacing: 0.04em; text-transform: none; }
+.type-spec .specs {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-text);
+  line-height: 1.7;
+  padding-top: 14px;
+}
+.type-spec .sample { color: var(--charcoal); }
+
+.t-display { font-family: var(--font-display); font-weight: 400; font-size: 64px; line-height: 1; letter-spacing: -0.025em; }
+.t-h1 { font-family: var(--font-display); font-weight: 500; font-size: 40px; line-height: 1.08; letter-spacing: -0.02em; }
+.t-h2 { font-family: var(--font-display); font-weight: 500; font-size: 30px; line-height: 1.15; letter-spacing: -0.015em; }
+.t-h3 { font-family: var(--font-ui); font-weight: 600; font-size: 20px; line-height: 1.3; letter-spacing: -0.005em; }
+.t-h4 { font-family: var(--font-ui); font-weight: 600; font-size: 16px; line-height: 1.35; letter-spacing: 0; }
+.t-body-lg { font-family: var(--font-ui); font-weight: 400; font-size: 17px; line-height: 1.55; }
+.t-body { font-family: var(--font-ui); font-weight: 400; font-size: 15px; line-height: 1.55; }
+.t-body-sm { font-family: var(--font-ui); font-weight: 400; font-size: 13px; line-height: 1.5; color: var(--charcoal-soft); }
+.t-label { font-family: var(--font-ui); font-weight: 600; font-size: 11px; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-text); }
+.t-caption { font-family: var(--font-ui); font-weight: 400; font-size: 12px; line-height: 1.4; color: var(--muted-text); }
+.t-mono { font-family: var(--font-mono); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.t-mono-display { font-family: var(--font-mono); font-weight: 500; font-size: 56px; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   SPACING / RADIUS / SHADOW
+   ============================================================ */
+.scale-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--s-4);
+}
+.scale-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-3);
+  min-height: 140px;
+  justify-content: space-between;
+}
+.scale-card .bar {
+  background: var(--charcoal);
+  height: 12px;
+  border-radius: 2px;
+}
+.scale-card .meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-text);
+}
+.scale-card b {
+  font-family: var(--font-mono);
+  color: var(--charcoal);
+  font-size: 13px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.radius-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--s-4); }
+.radius-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  align-items: center;
+}
+.radius-demo {
+  width: 100%;
+  height: 84px;
+  background: var(--charcoal);
+}
+.radius-card .meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-text);
+  text-align: center;
+}
+.radius-card b { display: block; color: var(--charcoal); font-weight: 600; font-size: 13px; }
+
+.shadow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-6); }
+.shadow-card {
+  background: var(--card-cream);
+  border-radius: var(--r-4);
+  padding: var(--s-8);
+  text-align: center;
+  border: 1px solid transparent;
+}
+.shadow-card.s1 { box-shadow: var(--shadow-subtle); border-color: var(--soft-border); }
+.shadow-card.s2 { box-shadow: var(--shadow-medium); }
+.shadow-card.s3 { box-shadow: var(--shadow-strong); }
+.shadow-card b { font-family: var(--font-display); font-size: 22px; font-weight: 500; display: block; }
+.shadow-card .meta { font-family: var(--font-mono); font-size: 11px; color: var(--muted-text); margin-top: 4px; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  padding: 12px 18px;
+  border-radius: var(--r-3);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition:
+    background var(--d-fast) var(--ease-standard),
+    border-color var(--d-fast) var(--ease-standard),
+    color var(--d-fast) var(--ease-standard),
+    transform var(--d-instant);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(0.5px); }
+.btn:focus-visible {
+  outline: 2px solid var(--revenue-green);
+  outline-offset: 2px;
+}
+.btn--sm { padding: 8px 12px; font-size: 13px; border-radius: var(--r-2); }
+
+.btn--primary { background: var(--revenue-green); color: var(--card-cream); }
+.btn--primary:hover { background: var(--green-deep); }
+.btn--primary:active { background: var(--green-press); }
+
+.btn--secondary {
+  background: transparent;
+  color: var(--charcoal);
+  border-color: var(--charcoal);
+}
+.btn--secondary:hover { background: var(--charcoal); color: var(--card-cream); }
+
+.btn--secondary-green {
+  background: transparent;
+  color: var(--revenue-green);
+  border-color: var(--revenue-green);
+}
+.btn--secondary-green:hover { background: var(--green-tint); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--charcoal);
+  padding: 12px 12px;
+}
+.btn--ghost:hover { background: var(--cream-deep); }
+
+.btn--destructive {
+  background: var(--recovery-red);
+  color: var(--card-cream);
+}
+.btn--destructive:hover { background: var(--red-deep); }
+
+.btn[disabled], .btn--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn--loading { color: transparent; position: relative; }
+.btn--loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  color: var(--card-cream);
+  animation: spin 700ms linear infinite;
+}
+.btn--destructive.btn--loading::after { color: var(--card-cream); }
+.btn--secondary.btn--loading::after { color: var(--charcoal); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.btn--icon {
+  width: 32px; height: 32px;
+  padding: 0;
+  justify-content: center;
+  background: transparent;
+  color: var(--charcoal-soft);
+  border-radius: var(--r-2);
+}
+.btn--icon:hover { background: var(--cream-deep); color: var(--charcoal); }
+
+.btn-row { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+.btn-states-grid {
+  display: grid;
+  grid-template-columns: 130px repeat(5, 1fr);
+  gap: var(--s-3);
+  align-items: center;
+  padding: var(--s-5);
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+}
+.btn-states-grid .hdr { font-family: var(--font-ui); font-weight: 600; font-size: 11px; letter-spacing: 0.08em; color: var(--muted-text); text-transform: uppercase; }
+
+/* ============================================================
+   FORM ELEMENTS
+   ============================================================ */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--s-4);
+}
+.field label {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+.field .helper { font-size: 12px; color: var(--muted-text); }
+.input, .textarea, .select {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--charcoal);
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-1);
+  padding: 10px 12px;
+  transition:
+    border-color var(--d-fast) var(--ease-standard),
+    background var(--d-fast) var(--ease-standard),
+    box-shadow var(--d-fast) var(--ease-standard);
+}
+.input:hover, .textarea:hover, .select:hover { border-color: #B8AE9B; }
+.input:focus, .textarea:focus, .select:focus {
+  outline: none;
+  border-color: var(--revenue-green);
+  box-shadow: 0 0 0 3px rgba(31, 107, 69, 0.16);
+}
+.input[disabled], .textarea[disabled], .select[disabled] {
+  background: var(--cream-deep);
+  color: var(--muted-text);
+  cursor: not-allowed;
+}
+.input.is-error { border-color: var(--recovery-red); }
+.input.is-error:focus { box-shadow: 0 0 0 3px rgba(158, 47, 47, 0.16); }
+.textarea { min-height: 110px; resize: vertical; line-height: 1.5; font-family: var(--font-ui); }
+.select { appearance: none; padding-right: 32px; background-image: linear-gradient(45deg, transparent 50%, var(--muted-text) 50%), linear-gradient(135deg, var(--muted-text) 50%, transparent 50%); background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+
+.search-input {
+  position: relative;
+}
+.search-input .input { padding-left: 36px; width: 100%; }
+.search-input::before {
+  content: "";
+  position: absolute;
+  left: 12px; top: 50%;
+  width: 14px; height: 14px;
+  margin-top: -7px;
+  border: 1.5px solid var(--muted-text);
+  border-radius: 50%;
+}
+.search-input::after {
+  content: "";
+  position: absolute;
+  left: 23px; top: 24px;
+  width: 7px;
+  height: 1.5px;
+  background: var(--muted-text);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+.checkbox { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; }
+.checkbox input { appearance: none; width: 18px; height: 18px; border: 1.5px solid var(--soft-border); border-radius: 4px; background: var(--card-cream); cursor: pointer; display: grid; place-items: center; transition: background var(--d-fast) var(--ease-standard), border-color var(--d-fast) var(--ease-standard); }
+.checkbox input:hover { border-color: var(--charcoal); }
+.checkbox input:checked { background: var(--revenue-green); border-color: var(--revenue-green); }
+.checkbox input:checked::after {
+  content: "";
+  width: 5px; height: 9px;
+  border-right: 2px solid var(--card-cream);
+  border-bottom: 2px solid var(--card-cream);
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch .slider {
+  position: absolute; cursor: pointer;
+  inset: 0;
+  background: var(--soft-border);
+  border-radius: var(--r-pill);
+  transition: background var(--d-normal) var(--ease-standard);
+}
+.switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 16px; width: 16px;
+  left: 3px; bottom: 3px;
+  background: var(--card-cream);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: transform var(--d-normal) var(--ease-standard);
+}
+.switch input:checked + .slider { background: var(--revenue-green); }
+.switch input:checked + .slider::before { transform: translateX(18px); }
+
+.toggle-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding: var(--s-3) 0; }
+.toggle-row .toggle-label { font-size: 14px; font-weight: 500; }
+.toggle-row .toggle-helper { font-size: 12px; color: var(--muted-text); }
+
+/* ============================================================
+   STATUS BADGES - the critical system
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 10px 5px 9px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+/* Ready - amber, action available */
+.badge--ready { background: var(--amber-tint); color: var(--amber-deep); border-color: var(--amber-line); }
+/* Draft Ready - slightly stronger amber, denotes pending review */
+.badge--draft { background: var(--amber-soft); color: var(--amber-deep); border-color: var(--attention-amber); }
+/* Approved - green */
+.badge--approved { background: var(--green-tint); color: var(--revenue-green); border-color: var(--green-line); }
+/* Sent - softer green */
+.badge--sent { background: var(--green-soft); color: var(--revenue-green); border-color: var(--green-line); }
+/* Returned - strongest, revenue recovered */
+.badge--returned { background: var(--green-strong-bg); color: var(--green-press); border-color: var(--revenue-green); font-weight: 700; }
+.badge--returned .dot { background: var(--revenue-green); opacity: 1; }
+/* Skipped - muted neutral */
+.badge--skipped { background: var(--neutral-soft); color: var(--muted-text); border-color: var(--neutral-line); }
+/* Needs Care - red, careful */
+.badge--care { background: var(--red-tint); color: var(--red-deep); border-color: var(--red-line); }
+/* Contacted - amber, neutral progress */
+.badge--contacted { background: var(--amber-tint); color: var(--amber-deep); border-color: var(--amber-line); }
+.badge--contacted .dot { background: var(--attention-amber); }
+/* Resolved - green */
+.badge--resolved { background: var(--green-tint); color: var(--revenue-green); border-color: var(--green-line); }
+/* BLOCKING - bold red */
+.badge--blocking {
+  background: var(--recovery-red);
+  color: var(--card-cream);
+  border-color: var(--red-deep);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.badge--blocking .dot { background: var(--card-cream); opacity: 1; }
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--s-3);
+}
+.badge-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-3);
+  padding: var(--s-4) var(--s-5);
+}
+.badge-card .badge { margin-bottom: var(--s-3); }
+.badge-card .ctx { font-size: 12px; color: var(--muted-text); line-height: 1.45; }
+
+/* ============================================================
+   DATA DISPLAY
+   ============================================================ */
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  overflow: hidden;
+  font-size: 14px;
+}
+table.data th {
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--soft-border);
+  background: var(--card-cream);
+}
+table.data td {
+  padding: 16px;
+  border-bottom: 1px solid var(--soft-border);
+  vertical-align: middle;
+  color: var(--charcoal);
+}
+table.data tr:last-child td { border-bottom: 0; }
+table.data tr.row { transition: background var(--d-fast) var(--ease-standard); }
+table.data tr.row:hover { background: var(--cream-deep); cursor: pointer; }
+table.data tr.row.selected { background: var(--cream-sunk); }
+table.data td .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--cream-deep);
+  border: 1px solid var(--soft-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--charcoal);
+  letter-spacing: -0.01em;
+}
+.avatar--lg { width: 44px; height: 44px; font-size: 16px; }
+.avatar--sm { width: 24px; height: 24px; font-size: 11px; }
+.avatar.tone-a { background: #E8DCC2; }
+.avatar.tone-b { background: #DCE3D6; }
+.avatar.tone-c { background: #E3D6D6; }
+.avatar.tone-d { background: #D6DCE3; }
+.avatar.tone-e { background: #E3D6E0; }
+
+.customer-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.customer-cell .name { font-weight: 500; font-size: 14px; line-height: 1.2; }
+.customer-cell .sub { font-size: 12px; color: var(--muted-text); }
+
+/* Stat card - centrepiece */
+.stat-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  padding: var(--s-8) var(--s-8) var(--s-6);
+  box-shadow: var(--shadow-subtle);
+  position: relative;
+}
+.stat-card .stat-label {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  margin-bottom: var(--s-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stat-card .stat-label::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--revenue-green);
+}
+.stat-card .stat-value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--revenue-green);
+  font-variant-numeric: tabular-nums;
+}
+.stat-card .stat-value .currency { font-size: 36px; vertical-align: top; line-height: 1.6; margin-right: 2px; font-weight: 400; }
+.stat-card .stat-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+  font-size: 13px;
+  color: var(--muted-text);
+}
+.stat-card .delta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--revenue-green);
+  background: var(--green-tint);
+  padding: 3px 8px;
+  border-radius: var(--r-pill);
+}
+
+.stat-card.compact { padding: var(--s-6); }
+.stat-card.compact .stat-value { font-size: 40px; color: var(--charcoal); }
+.stat-card.compact.amber .stat-value { color: var(--attention-amber); }
+.stat-card.compact.amber .stat-label::before { background: var(--attention-amber); }
+.stat-card.compact.red .stat-value { color: var(--recovery-red); }
+.stat-card.compact.red .stat-label::before { background: var(--recovery-red); }
+
+.empty-state {
+  background: var(--card-cream);
+  border: 1px dashed var(--soft-border);
+  border-radius: var(--r-4);
+  padding: var(--s-12);
+  text-align: center;
+  color: var(--muted-text);
+}
+.empty-state .glyph {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--cream-deep);
+  margin: 0 auto var(--s-4);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--charcoal);
+}
+.empty-state h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--charcoal);
+  margin: 0 0 var(--s-2);
+  letter-spacing: -0.01em;
+}
+.empty-state p { max-width: 38ch; margin: 0 auto; font-size: 14px; }
+
+.divider { height: 1px; background: var(--soft-border); border: 0; margin: var(--s-6) 0; }
+
+/* ============================================================
+   ALERTS & TOASTS
+   ============================================================ */
+.alert {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: var(--s-4);
+  align-items: flex-start;
+  padding: var(--s-4) var(--s-5);
+  border-radius: var(--r-3);
+  border: 1px solid;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.alert .icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--card-cream);
+  margin-top: 1px;
+}
+.alert h4 { margin: 0 0 2px; font-size: 14px; font-weight: 600; }
+.alert p { margin: 0; color: var(--muted-text); font-size: 13px; }
+.alert .close { font-family: var(--font-mono); font-size: 12px; color: var(--muted-text); cursor: pointer; background: none; border: 0; }
+
+.alert--info { background: var(--info-bg); border-color: var(--info-line); }
+.alert--info .icon { background: var(--info-text); }
+.alert--warning { background: var(--amber-tint); border-color: var(--amber-line); }
+.alert--warning .icon { background: var(--attention-amber); }
+.alert--success { background: var(--green-tint); border-color: var(--green-line); }
+.alert--success .icon { background: var(--revenue-green); }
+.alert--danger { background: var(--red-tint); border-color: var(--red-line); }
+.alert--danger .icon { background: var(--recovery-red); }
+
+.toast-shelf { display: flex; flex-direction: column; gap: var(--s-3); max-width: 400px; }
+.toast {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-left: 3px solid;
+  border-radius: var(--r-3);
+  padding: var(--s-3) var(--s-5);
+  box-shadow: var(--shadow-medium);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.toast.success { border-left-color: var(--revenue-green); }
+.toast.warning { border-left-color: var(--attention-amber); }
+.toast.error { border-left-color: var(--recovery-red); }
+.toast .toast-title { font-weight: 600; font-size: 13px; margin-bottom: 1px; }
+.toast .toast-body { color: var(--muted-text); font-size: 12px; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav-demo {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 0;
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  overflow: hidden;
+  min-height: 360px;
+}
+.nav-side {
+  background: var(--charcoal);
+  color: var(--card-cream);
+  padding: var(--s-5) var(--s-3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-side .brand {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--card-cream);
+  padding: 6px 12px var(--s-5);
+  letter-spacing: -0.015em;
+}
+.nav-side .brand em { font-weight: 400; color: var(--green-line); }
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: rgba(251, 248, 242, 0.7);
+  border-radius: var(--r-2);
+  cursor: pointer;
+  transition: background var(--d-fast), color var(--d-fast);
+}
+.nav-item:hover { background: rgba(251, 248, 242, 0.08); color: var(--card-cream); }
+.nav-item.active {
+  background: rgba(31, 107, 69, 0.28);
+  color: var(--card-cream);
+  border-left: 2px solid var(--revenue-green);
+  padding-left: 10px;
+}
+.nav-item .nav-icon {
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  border: 1.5px solid currentColor;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+.nav-item .nav-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: rgba(251, 248, 242, 0.1);
+  padding: 2px 6px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.04em;
+}
+.nav-side .section-label {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(251, 248, 242, 0.4);
+  padding: var(--s-4) 12px var(--s-2);
+}
+
+.nav-main { display: flex; flex-direction: column; }
+.nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--soft-border);
+}
+.nav-top .venue {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.nav-top .venue .sub { font-family: var(--font-ui); font-size: 12px; color: var(--muted-text); font-weight: 400; margin-left: var(--s-3); letter-spacing: 0; }
+.nav-top .actions { display: flex; align-items: center; gap: var(--s-3); }
+.breadcrumb { padding: var(--s-3) var(--s-6) 0; font-size: 12px; color: var(--muted-text); display: flex; gap: 8px; align-items: center; }
+.breadcrumb a { color: var(--muted-text); text-decoration: none; }
+.breadcrumb .sep { opacity: 0.5; }
+.breadcrumb .current { color: var(--charcoal); }
+.nav-content { padding: var(--s-6); color: var(--muted-text); font-size: 13px; flex: 1; display: grid; place-items: center; font-family: var(--font-ui); }
+
+/* ============================================================
+   PRODUCT-SPECIFIC COMPONENTS
+   ============================================================ */
+
+/* Opportunity row treatment */
+.opp-table {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  overflow: hidden;
+}
+.opp-row {
+  display: grid;
+  grid-template-columns: 240px 220px 120px 110px 140px 110px;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--soft-border);
+  transition: background var(--d-fast);
+  cursor: pointer;
+}
+.opp-row:last-child { border-bottom: 0; }
+.opp-row:hover { background: var(--cream-deep); }
+.opp-row.head {
+  background: var(--card-cream);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted-text);
+  text-transform: uppercase;
+  cursor: default;
+  padding-top: var(--s-3);
+  padding-bottom: var(--s-3);
+}
+.opp-row.head:hover { background: var(--card-cream); }
+
+.opp-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.opp-type::before {
+  content: "";
+  width: 3px;
+  height: 16px;
+  border-radius: 2px;
+}
+.opp-type.lapsed::before { background: var(--attention-amber); }
+.opp-type.first-visit::before { background: var(--revenue-green); }
+.opp-type.high-value::before { background: var(--charcoal); }
+.opp-type.birthday::before { background: #B47BA0; }
+
+.opp-last { font-size: 13px; color: var(--muted-text); }
+.opp-value {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+.opp-row .review-btn { justify-self: end; }
+
+/* Message draft panel */
+.draft-panel {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 0;
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  overflow: hidden;
+  box-shadow: var(--shadow-subtle);
+}
+.draft-main { padding: var(--s-6) var(--s-8); display: flex; flex-direction: column; gap: var(--s-4); }
+.draft-meta {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: var(--s-2) var(--s-4);
+  font-size: 13px;
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--soft-border);
+}
+.draft-meta dt { color: var(--muted-text); font-family: var(--font-ui); font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; align-self: center; }
+.draft-meta dd { margin: 0; color: var(--charcoal); }
+.draft-meta dd.subject { font-family: var(--font-display); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; }
+.draft-body {
+  background: var(--warm-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-3);
+  padding: var(--s-5);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--charcoal);
+  min-height: 200px;
+}
+.draft-body p { margin: 0 0 var(--s-3); }
+.draft-body p:last-child { margin-bottom: 0; }
+.draft-body .signature { color: var(--muted-text); font-family: var(--font-ui); }
+.draft-actions {
+  display: flex;
+  gap: var(--s-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.draft-actions .spacer { flex: 1; }
+
+.draft-side {
+  background: var(--warm-cream);
+  border-left: 1px solid var(--soft-border);
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.draft-side .customer-head { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-4); border-bottom: 1px solid var(--soft-border); }
+.draft-side .customer-head .name { font-family: var(--font-display); font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
+.draft-side .customer-head .sub { font-size: 12px; color: var(--muted-text); }
+.ctx-rows { display: flex; flex-direction: column; gap: var(--s-3); }
+.ctx-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; }
+.ctx-row .k { color: var(--muted-text); font-family: var(--font-ui); font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.ctx-row .v { font-weight: 500; color: var(--charcoal); }
+.ctx-row .v.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.ctx-row .v.green { color: var(--revenue-green); }
+
+.tone-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--card-cream); border: 1px solid var(--soft-border);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+}
+.tone-pill .dot { width: 6px; height: 6px; background: var(--revenue-green); border-radius: 50%; }
+
+/* Grievance card */
+.grievance-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-left: 3px solid var(--recovery-red);
+  border-radius: var(--r-3);
+  padding: var(--s-5) var(--s-6);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-4);
+  align-items: flex-start;
+}
+.grievance-card .top { display: flex; align-items: center; gap: var(--s-3); margin-bottom: var(--s-3); }
+.grievance-card .name { font-family: var(--font-display); font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+.grievance-card .meta { font-size: 12px; color: var(--muted-text); margin-left: var(--s-2); }
+.grievance-card .quote {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--charcoal-soft);
+  margin: 0;
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--red-line);
+}
+.grievance-card .timing { font-size: 12px; color: var(--muted-text); margin-top: var(--s-3); display: flex; gap: var(--s-3); align-items: center; }
+.grievance-card .actions { display: flex; gap: var(--s-2); }
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+.motion-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-3); }
+.motion-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-3);
+  padding: var(--s-4) var(--s-5);
+  text-align: center;
+}
+.motion-card b { font-family: var(--font-ui); font-weight: 600; font-size: 11px; color: var(--charcoal); display: block; letter-spacing: 0.06em; text-transform: uppercase; }
+.motion-card .val { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin-top: 4px; }
+.motion-card .meta { font-size: 11px; color: var(--muted-text); margin-top: 4px; font-family: var(--font-ui); }
+
+.counter-demo {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  padding: var(--s-6);
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+}
+.counter-demo .lbl {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+  margin-bottom: 6px;
+  display: block;
+}
+.counter-demo .val {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 56px;
+  color: var(--revenue-green);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.counter-demo .val .currency { font-size: 28px; vertical-align: top; line-height: 1.5; font-weight: 400; }
+.counter-demo button { margin-left: auto; }
+
+/* ============================================================
+   MICROCOPY / VOICE
+   ============================================================ */
+.voice-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-4); }
+.voice-card {
+  background: var(--card-cream);
+  border: 1px solid var(--soft-border);
+  border-radius: var(--r-4);
+  padding: var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.voice-card .voice-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-2);
+}
+.voice-card .voice-mark {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--card-cream);
+}
+.voice-card.ui .voice-mark { background: var(--charcoal); }
+.voice-card.standard .voice-mark { background: var(--revenue-green); }
+.voice-card.grievance .voice-mark { background: var(--recovery-red); }
+.voice-card h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.voice-card .desc { font-size: 13px; color: var(--muted-text); margin-bottom: var(--s-3); }
+.voice-card blockquote {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--charcoal-soft);
+  padding: var(--s-3) var(--s-4);
+  border-left: 2px solid var(--soft-border);
+}
+.voice-card.standard blockquote { border-left-color: var(--green-line); }
+.voice-card.grievance blockquote { border-left-color: var(--red-line); }
+.voice-card .ex-label {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-text);
+}
+
+/* ---------- principle callout ---------- */
+.principle {
+  background: var(--charcoal);
+  color: var(--card-cream);
+  border-radius: var(--r-4);
+  padding: var(--s-10) var(--s-12);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--s-10);
+  align-items: center;
+  margin-top: var(--s-10);
+}
+.principle .lbl {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(251,248,242,0.55);
+  text-transform: uppercase;
+  margin-bottom: var(--s-3);
+}
+.principle h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 18ch;
+}
+.principle h3 em { color: #87C0A0; font-weight: 400; }
+.principle .hero-num {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 96px;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: #87C0A0;
+  font-variant-numeric: tabular-nums;
+}
+.principle .hero-num .currency { font-size: 48px; vertical-align: top; line-height: 1.5; font-weight: 400; }
+.principle .hero-label {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(251,248,242,0.55);
+  text-transform: uppercase;
+  text-align: right;
+  margin-top: 6px;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  margin-top: var(--s-20);
+  padding-top: var(--s-8);
+  border-top: 1px solid var(--soft-border);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted-text);
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header>
+    <div class="doc-meta">Design System · v1 · Phase 1 of 3</div>
+    <h1 class="doc-title">Regulars <em>- a system for hospitality.</em></h1>
+    <p class="doc-sub">Revenue recovery infrastructure for local venues. This document defines every token, component, and tone of voice that powers the product. Warm, considered, commercially sharp - built so an operator opens it on a Tuesday morning and thinks <em style="color:var(--charcoal);font-weight:500">"this gets it."</em></p>
+  </header>
+
+  <!-- THE PRINCIPLE -->
+  <section class="principle">
+    <div>
+      <div class="lbl">The Single Most Important Principle</div>
+      <h3>Make recovered revenue <em>impossible to miss.</em></h3>
+    </div>
+    <div style="text-align:right">
+      <div class="hero-num"><span class="currency">$</span>4,820</div>
+      <div class="hero-label">Recovered this week</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       01 - COLOUR
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>01</b> &nbsp; Colour</div>
+      <div>
+        <h2>A warm room, not a dashboard.</h2>
+        <p>Cream is the calm workspace. Charcoal carries authority. Green signals money recovered - and only that. Amber asks for attention. Red is reserved for customer recovery. No saturated chrome, no electric SaaS blues.</p>
+      </div>
+    </div>
+
+    <div class="label-row">Core · locked palette</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="chip" style="background:#F5F1E8"></div>
+        <div class="meta">
+          <div class="name">Warm Cream</div>
+          <div class="hex">#F5F1E8</div>
+          <div class="use">Main app background. The room the operator sits in.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#141414"></div>
+        <div class="meta">
+          <div class="name">Charcoal Black</div>
+          <div class="hex">#141414</div>
+          <div class="use">Navigation, primary text, headings, the major numbers that aren't revenue.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#1F6B45"></div>
+        <div class="meta">
+          <div class="name">Revenue Green</div>
+          <div class="hex">#1F6B45</div>
+          <div class="use">Recovered revenue, primary CTAs, returned customers. Earned, not decorative.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="label-row">Supporting UI</div>
+    <div class="support-grid">
+      <div class="support-swatch">
+        <div class="chip" style="background:#FBF8F2"></div>
+        <div class="meta"><div class="name">Card Cream</div><div class="hex">#FBF8F2</div></div>
+      </div>
+      <div class="support-swatch">
+        <div class="chip" style="background:#D8CFC1"></div>
+        <div class="meta"><div class="name">Soft Border</div><div class="hex">#D8CFC1</div></div>
+      </div>
+      <div class="support-swatch">
+        <div class="chip" style="background:#6B675F"></div>
+        <div class="meta"><div class="name">Muted Text</div><div class="hex">#6B675F</div></div>
+      </div>
+      <div class="support-swatch">
+        <div class="chip" style="background:#C9822B"></div>
+        <div class="meta"><div class="name">Attention Amber</div><div class="hex">#C9822B</div></div>
+      </div>
+      <div class="support-swatch">
+        <div class="chip" style="background:#9E2F2F"></div>
+        <div class="meta"><div class="name">Recovery Red</div><div class="hex">#9E2F2F</div></div>
+      </div>
+    </div>
+
+    <div class="label-row">Derived tints & states</div>
+    <div class="tint-row">
+      <div class="tint" style="background:#ECE5D5"><div class="tname">Cream / Hover</div><div class="thex">#ECE5D5</div></div>
+      <div class="tint" style="background:#E4DCC8"><div class="tname">Cream / Sunk</div><div class="thex">#E4DCC8</div></div>
+      <div class="tint" style="background:#174F33;color:#F5F1E8"><div class="tname" style="color:#D8CFC1">Green / Hover</div><div class="thex" style="color:#F5F1E8">#174F33</div></div>
+      <div class="tint" style="background:#EAF1EB"><div class="tname">Green / Tint</div><div class="thex">#EAF1EB</div></div>
+      <div class="tint" style="background:#FBEFD5"><div class="tname">Amber / Tint</div><div class="thex">#FBEFD5</div></div>
+      <div class="tint" style="background:#F4DEDB"><div class="tname">Red / Tint</div><div class="thex">#F4DEDB</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       02 - TYPOGRAPHY
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>02</b> &nbsp; Typography</div>
+      <div>
+        <h2>Editorial warmth, operational clarity.</h2>
+        <p><b>Newsreader</b> gives the brand its hospitality voice - a contemporary serif that feels at home on a printed menu. <b>Figtree</b> is the operator's font: clean, humanist, unflinching at small sizes. <b>JetBrains Mono</b> carries the numbers - revenue is the hero, and it needs to land with weight.</p>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding: var(--s-6) var(--s-8)">
+        <div class="type-spec">
+          <div class="meta"><b>Display</b>Newsreader · Hero stats, marketing</div>
+          <div class="sample t-display">$4,820 recovered</div>
+          <div class="specs">64px / 100% / -2.5%<br/>weight 400</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>H1</b>Newsreader · Page titles</div>
+          <div class="sample t-h1">Opportunities this week</div>
+          <div class="specs">40px / 108% / -2%<br/>weight 500</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>H2</b>Newsreader · Section heads</div>
+          <div class="sample t-h2">Customers worth bringing back</div>
+          <div class="specs">30px / 115% / -1.5%<br/>weight 500</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>H3</b>Figtree · Subsections, card titles</div>
+          <div class="sample t-h3">Recent grievances</div>
+          <div class="specs">20px / 130% / -0.5%<br/>weight 600</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>H4</b>Figtree · Block titles</div>
+          <div class="sample t-h4">Customer context</div>
+          <div class="specs">16px / 135%<br/>weight 600</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Body Large</b>Figtree · Lede paragraphs</div>
+          <div class="sample t-body-lg">Sarah hasn't booked in eight weeks. Her average spend is well above your venue median - worth a personal note.</div>
+          <div class="specs">17px / 155%<br/>weight 400</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Body</b>Figtree · Default UI prose</div>
+          <div class="sample t-body">A regular is someone who comes back. Someone who is known. Someone who matters to a venue. The product honours that.</div>
+          <div class="specs">15px / 155%<br/>weight 400</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Body Small</b>Figtree · Helper, in-table secondary</div>
+          <div class="sample t-body-sm">Drafted Tuesday at 9:14am. Awaiting your approval before send.</div>
+          <div class="specs">13px / 150%<br/>weight 400</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Label</b>Figtree · Table heads, eyebrow</div>
+          <div class="sample t-label">Estimated Value</div>
+          <div class="specs">11px / 140% / +8%<br/>uppercase · weight 600</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Caption</b>Figtree · Timestamps, fine print</div>
+          <div class="sample t-caption">Last visit 8 weeks ago · party of 2</div>
+          <div class="specs">12px / 140%<br/>weight 400</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Mono Value</b>JetBrains Mono · Inline figures</div>
+          <div class="sample t-mono">$1,240.00 · 14 covers · 87% open rate</div>
+          <div class="specs">18px · tabular nums<br/>weight 500</div>
+        </div>
+        <div class="type-spec">
+          <div class="meta"><b>Mono Display</b>JetBrains Mono · Hero figures</div>
+          <div class="sample t-mono-display" style="color:var(--revenue-green)">$4,820</div>
+          <div class="specs">56px / 100% / -4%<br/>weight 500 · tabular nums</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       03 - SPACING, RADIUS, SHADOW
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>03</b> &nbsp; Space, radius, light</div>
+      <div>
+        <h2>Generous, soft, never bubbly.</h2>
+        <p>A 4-pixel base with named tokens for the common moves. Radii get more generous as a surface gets more pill-like - buttons sit at 10px, badges at full pill, cards at 14px. Shadows are tinted warm - never cold grey - so depth still feels like the room.</p>
+      </div>
+    </div>
+
+    <div class="label-row">Spacing scale · 4px base</div>
+    <div class="scale-grid">
+      <div class="scale-card"><div><b>4 · xs</b><div class="meta">--s-1</div></div><div class="bar" style="width:4px"></div></div>
+      <div class="scale-card"><div><b>8 · sm</b><div class="meta">--s-2</div></div><div class="bar" style="width:8px"></div></div>
+      <div class="scale-card"><div><b>12</b><div class="meta">--s-3</div></div><div class="bar" style="width:12px"></div></div>
+      <div class="scale-card"><div><b>16 · md</b><div class="meta">--s-4</div></div><div class="bar" style="width:16px"></div></div>
+      <div class="scale-card"><div><b>20</b><div class="meta">--s-5</div></div><div class="bar" style="width:20px"></div></div>
+      <div class="scale-card"><div><b>24 · lg</b><div class="meta">--s-6</div></div><div class="bar" style="width:24px"></div></div>
+      <div class="scale-card"><div><b>32</b><div class="meta">--s-8</div></div><div class="bar" style="width:32px"></div></div>
+      <div class="scale-card"><div><b>40 · xl</b><div class="meta">--s-10</div></div><div class="bar" style="width:40px"></div></div>
+      <div class="scale-card"><div><b>48</b><div class="meta">--s-12</div></div><div class="bar" style="width:48px"></div></div>
+      <div class="scale-card"><div><b>64 · 2xl</b><div class="meta">--s-16</div></div><div class="bar" style="width:64px"></div></div>
+      <div class="scale-card"><div><b>80</b><div class="meta">--s-20</div></div><div class="bar" style="width:80px"></div></div>
+      <div class="scale-card"><div><b>96 · 3xl</b><div class="meta">--s-24</div></div><div class="bar" style="width:96px"></div></div>
+    </div>
+
+    <div class="label-row">Radius scale</div>
+    <div class="radius-grid">
+      <div class="radius-card"><div class="radius-demo" style="border-radius:4px"></div><div class="meta"><b>4px</b>inputs · table rows</div></div>
+      <div class="radius-card"><div class="radius-demo" style="border-radius:6px"></div><div class="meta"><b>6px</b>small chips</div></div>
+      <div class="radius-card"><div class="radius-demo" style="border-radius:10px"></div><div class="meta"><b>10px</b>buttons</div></div>
+      <div class="radius-card"><div class="radius-demo" style="border-radius:14px"></div><div class="meta"><b>14px</b>cards · panels</div></div>
+      <div class="radius-card"><div class="radius-demo" style="border-radius:20px"></div><div class="meta"><b>20px</b>large panels</div></div>
+      <div class="radius-card"><div class="radius-demo" style="border-radius:999px"></div><div class="meta"><b>pill</b>badges · tags</div></div>
+    </div>
+
+    <div class="label-row">Warm-tinted shadows</div>
+    <div class="shadow-grid">
+      <div class="shadow-card s1"><b>Subtle</b><div class="meta">Cards on cream</div></div>
+      <div class="shadow-card s2"><b>Medium</b><div class="meta">Modals & dropdowns</div></div>
+      <div class="shadow-card s3"><b>Strong</b><div class="meta">Overlays</div></div>
+    </div>
+
+    <div class="label-row">Layout widths</div>
+    <div class="scale-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="scale-card"><div><b>1200px</b><div class="meta">Dashboard content</div></div></div>
+      <div class="scale-card"><div><b>1080px</b><div class="meta">Marketing page</div></div></div>
+      <div class="scale-card"><div><b>520px</b><div class="meta">Narrow form / modal</div></div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       04 - BUTTONS
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>04</b> &nbsp; Buttons</div>
+      <div>
+        <h2>One green action per screen.</h2>
+        <p>Primary is reserved for the moment that earns revenue: <em>Approve</em>, <em>Connect</em>, <em>Save</em>. Secondary carries everything else. Ghost lives in tables and rows. Destructive earns its red.</p>
+      </div>
+    </div>
+
+    <div class="btn-states-grid">
+      <div class="hdr"></div>
+      <div class="hdr">Default</div>
+      <div class="hdr">Hover</div>
+      <div class="hdr">Focus</div>
+      <div class="hdr">Loading</div>
+      <div class="hdr">Disabled</div>
+
+      <div class="hdr" style="text-transform:none;font-family:var(--font-ui);color:var(--charcoal);font-size:13px;font-weight:500;letter-spacing:0">Primary</div>
+      <button class="btn btn--primary">Approve & send</button>
+      <button class="btn btn--primary" style="background:var(--green-deep)">Approve & send</button>
+      <button class="btn btn--primary" style="outline:2px solid var(--revenue-green);outline-offset:2px">Approve & send</button>
+      <button class="btn btn--primary btn--loading">Approve & send</button>
+      <button class="btn btn--primary" disabled>Approve & send</button>
+
+      <div class="hdr" style="text-transform:none;font-family:var(--font-ui);color:var(--charcoal);font-size:13px;font-weight:500;letter-spacing:0">Secondary</div>
+      <button class="btn btn--secondary">Edit draft</button>
+      <button class="btn btn--secondary" style="background:var(--charcoal);color:var(--card-cream)">Edit draft</button>
+      <button class="btn btn--secondary" style="outline:2px solid var(--revenue-green);outline-offset:2px">Edit draft</button>
+      <button class="btn btn--secondary btn--loading">Edit draft</button>
+      <button class="btn btn--secondary" disabled>Edit draft</button>
+
+      <div class="hdr" style="text-transform:none;font-family:var(--font-ui);color:var(--charcoal);font-size:13px;font-weight:500;letter-spacing:0">Ghost</div>
+      <button class="btn btn--ghost">Skip</button>
+      <button class="btn btn--ghost" style="background:var(--cream-deep)">Skip</button>
+      <button class="btn btn--ghost" style="background:var(--cream-deep);outline:2px solid var(--revenue-green);outline-offset:2px">Skip</button>
+      <button class="btn btn--ghost btn--loading" style="color:transparent">Skip</button>
+      <button class="btn btn--ghost" disabled>Skip</button>
+
+      <div class="hdr" style="text-transform:none;font-family:var(--font-ui);color:var(--charcoal);font-size:13px;font-weight:500;letter-spacing:0">Destructive</div>
+      <button class="btn btn--destructive">Delete venue</button>
+      <button class="btn btn--destructive" style="background:var(--red-deep)">Delete venue</button>
+      <button class="btn btn--destructive" style="outline:2px solid var(--revenue-green);outline-offset:2px">Delete venue</button>
+      <button class="btn btn--destructive btn--loading">Delete venue</button>
+      <button class="btn btn--destructive" disabled>Delete venue</button>
+    </div>
+
+    <div class="label-row">Sizes &amp; variants</div>
+    <div class="btn-row" style="padding: var(--s-5); background:var(--card-cream); border:1px solid var(--soft-border); border-radius:var(--r-4)">
+      <button class="btn btn--primary">Default size</button>
+      <button class="btn btn--primary btn--sm">Small size</button>
+      <button class="btn btn--secondary-green">Outlined green</button>
+      <button class="btn btn--icon" aria-label="more">⋯</button>
+      <button class="btn btn--ghost btn--sm">Mark as sent</button>
+      <button class="btn btn--secondary btn--sm">Send test</button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       05 - FORM ELEMENTS
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>05</b> &nbsp; Forms</div>
+      <div>
+        <h2>Quiet inputs that get out of the way.</h2>
+        <p>Operators read fast and type carefully. Inputs are warm-grey by default, lean charcoal on hover, and earn a green focus ring only when they're active. The textarea matters most - it is where a message gets edited before it goes out.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)">
+      <div class="card">
+        <div class="field">
+          <label>Venue name</label>
+          <input class="input" value="The Wilder, Hackney" />
+        </div>
+        <div class="field">
+          <label>Reply-to email</label>
+          <input class="input" placeholder="hello@yourvenue.com" />
+          <div class="helper">We'll show this in the From line.</div>
+        </div>
+        <div class="field">
+          <label>Booking system</label>
+          <select class="select"><option>SevenRooms</option><option>OpenTable</option><option>Resy</option></select>
+        </div>
+        <div class="field">
+          <label>Outreach tone</label>
+          <input class="input is-error" value="" placeholder="Pick a tone" />
+          <div class="helper" style="color:var(--recovery-red)">Required before drafting messages.</div>
+        </div>
+        <div class="field">
+          <label>Stripe account</label>
+          <input class="input" value="acct_1NxX**" disabled />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="field">
+          <label>Message draft</label>
+          <textarea class="textarea">Hi Sarah,
+
+It's been a little while since we've seen you. We'd love to welcome you back - this week is a great time to book in.
+
+- Marco</textarea>
+          <div class="helper">Edit freely. We'll learn your preferences over time.</div>
+        </div>
+
+        <div class="field">
+          <label>Search customers</label>
+          <div class="search-input"><input class="input" placeholder="Find by name, email, or last visit" /></div>
+        </div>
+
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Auto-approve trusted drafts</div>
+            <div class="toggle-helper">Send without review when confidence is high.</div>
+          </div>
+          <label class="switch"><input type="checkbox" /><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Include grievance recovery</div>
+            <div class="toggle-helper">Surface flagged customers in your weekly review.</div>
+          </div>
+          <label class="switch"><input type="checkbox" checked /><span class="slider"></span></label>
+        </div>
+
+        <hr class="divider" />
+
+        <div style="display:flex;gap:var(--s-5);flex-wrap:wrap">
+          <label class="checkbox"><input type="checkbox" checked /> Send weekly digest</label>
+          <label class="checkbox"><input type="checkbox" /> CC venue manager</label>
+          <label class="checkbox"><input type="checkbox" checked /> Track recovered revenue</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       06 - STATUS BADGES
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>06</b> &nbsp; Status badges</div>
+      <div>
+        <h2>The colour-coded language of the queue.</h2>
+        <p>Operators scan these constantly. Each status earns a colour for a reason - amber moves toward action, green walks the journey from approval to return, red flags the careful work, neutral steps back. The strongest treatment is reserved for the moment a customer comes back.</p>
+      </div>
+    </div>
+
+    <div class="badge-grid">
+      <div class="badge-card"><span class="badge badge--ready"><span class="dot"></span>Ready</span><div class="ctx">Opportunity identified. Awaiting first draft.</div></div>
+      <div class="badge-card"><span class="badge badge--draft"><span class="dot"></span>Draft Ready</span><div class="ctx">AI draft generated. Operator review required.</div></div>
+      <div class="badge-card"><span class="badge badge--approved"><span class="dot"></span>Approved</span><div class="ctx">Venue has approved. Queued to send.</div></div>
+      <div class="badge-card"><span class="badge badge--sent"><span class="dot"></span>Sent</span><div class="ctx">Message has gone out. Waiting on the customer.</div></div>
+      <div class="badge-card"><span class="badge badge--returned"><span class="dot"></span>Returned</span><div class="ctx">Customer rebooked. Revenue recovered - the win.</div></div>
+      <div class="badge-card"><span class="badge badge--skipped"><span class="dot"></span>Skipped</span><div class="ctx">Operator chose to skip this opportunity.</div></div>
+      <div class="badge-card"><span class="badge badge--care"><span class="dot"></span>Needs Care</span><div class="ctx">Grievance customer flagged. Careful tone required.</div></div>
+      <div class="badge-card"><span class="badge badge--contacted"><span class="dot"></span>Contacted</span><div class="ctx">Grievance customer has been reached out to.</div></div>
+      <div class="badge-card"><span class="badge badge--resolved"><span class="dot"></span>Resolved</span><div class="ctx">Grievance closed out. Relationship repaired.</div></div>
+      <div class="badge-card"><span class="badge badge--blocking"><span class="dot"></span>BLOCKING</span><div class="ctx">Internal - open decision blocking progress.</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       07 - DATA DISPLAY
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>07</b> &nbsp; Data display</div>
+      <div>
+        <h2>The hero stat, the dense table, the empty room.</h2>
+        <p>The Revenue Recovered card is the centrepiece. Tables are quiet by default and earn their hover. Avatars warm up customer records without being clinical. Empty states encourage - they never feel broken.</p>
+      </div>
+    </div>
+
+    <div class="label-row">Hero stat card</div>
+    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--s-4)">
+      <div class="stat-card">
+        <div class="stat-label">Recovered this week</div>
+        <div class="stat-value"><span class="currency">$</span>4,820</div>
+        <div class="stat-meta">
+          <span class="delta">↑ 38% vs last week</span>
+          <span>from 7 returned regulars</span>
+        </div>
+      </div>
+      <div class="stat-card compact">
+        <div class="stat-label">Customers brought back</div>
+        <div class="stat-value">7</div>
+        <div class="stat-meta"><span>this week</span></div>
+      </div>
+      <div class="stat-card compact amber">
+        <div class="stat-label">Open opportunity</div>
+        <div class="stat-value"><span style="font-size:24px;vertical-align:top;line-height:2">$</span>11,400</div>
+        <div class="stat-meta"><span>14 awaiting review</span></div>
+      </div>
+      <div class="stat-card compact red">
+        <div class="stat-label">Needs care</div>
+        <div class="stat-value">3</div>
+        <div class="stat-meta"><span>customer grievances</span></div>
+      </div>
+    </div>
+
+    <div class="label-row">Table - default · hover · selected</div>
+    <table class="data">
+      <thead>
+        <tr>
+          <th style="width:35%">Customer</th>
+          <th>Last visit</th>
+          <th>Avg spend</th>
+          <th>Est. value</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row">
+          <td>
+            <div class="customer-cell">
+              <div class="avatar tone-a">SM</div>
+              <div><div class="name">Sarah Mendez</div><div class="sub">14 visits · party of 2</div></div>
+            </div>
+          </td>
+          <td>8 weeks ago</td>
+          <td><span class="mono">$92</span></td>
+          <td><span class="mono">$184</span></td>
+          <td><span class="badge badge--draft"><span class="dot"></span>Draft Ready</span></td>
+        </tr>
+        <tr class="row selected">
+          <td>
+            <div class="customer-cell">
+              <div class="avatar tone-b">JR</div>
+              <div><div class="name">James Rourke</div><div class="sub">First visit · 10 weeks ago</div></div>
+            </div>
+          </td>
+          <td>10 weeks ago</td>
+          <td><span class="mono">$48</span></td>
+          <td><span class="mono">$96</span></td>
+          <td><span class="badge badge--approved"><span class="dot"></span>Approved</span></td>
+        </tr>
+        <tr class="row">
+          <td>
+            <div class="customer-cell">
+              <div class="avatar tone-c">EO</div>
+              <div><div class="name">Emma O'Brien</div><div class="sub">6 visits · usually Friday</div></div>
+            </div>
+          </td>
+          <td>3 weeks ago</td>
+          <td><span class="mono">$140</span></td>
+          <td><span class="mono">$280</span></td>
+          <td><span class="badge badge--sent"><span class="dot"></span>Sent</span></td>
+        </tr>
+        <tr class="row">
+          <td>
+            <div class="customer-cell">
+              <div class="avatar tone-d">TF</div>
+              <div><div class="name">Tom Fielding</div><div class="sub">22 visits · big spender</div></div>
+            </div>
+          </td>
+          <td>2 weeks ago</td>
+          <td><span class="mono">$210</span></td>
+          <td style="color:var(--revenue-green);font-weight:600"><span class="mono">$420</span></td>
+          <td><span class="badge badge--returned"><span class="dot"></span>Returned</span></td>
+        </tr>
+        <tr class="row">
+          <td>
+            <div class="customer-cell">
+              <div class="avatar tone-e">PL</div>
+              <div><div class="name">Priya Laksmi</div><div class="sub">Complained · party of 4</div></div>
+            </div>
+          </td>
+          <td>1 week ago</td>
+          <td><span class="mono">$68</span></td>
+          <td><span class="mono">$136</span></td>
+          <td><span class="badge badge--care"><span class="dot"></span>Needs Care</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="label-row">Avatars - warm, characterful initials</div>
+    <div style="display:flex;gap:var(--s-4);align-items:center;padding:var(--s-5);background:var(--card-cream);border:1px solid var(--soft-border);border-radius:var(--r-4)">
+      <div class="avatar avatar--lg tone-a">SM</div>
+      <div class="avatar avatar--lg tone-b">JR</div>
+      <div class="avatar avatar--lg tone-c">EO</div>
+      <div class="avatar avatar--lg tone-d">TF</div>
+      <div class="avatar avatar--lg tone-e">PL</div>
+      <div style="width:1px;height:32px;background:var(--soft-border);margin:0 var(--s-3)"></div>
+      <div class="avatar tone-a">AM</div>
+      <div class="avatar tone-b">DK</div>
+      <div class="avatar tone-c">RT</div>
+      <div style="width:1px;height:32px;background:var(--soft-border);margin:0 var(--s-3)"></div>
+      <div class="avatar avatar--sm tone-a">SM</div>
+      <div class="avatar avatar--sm tone-b">JR</div>
+      <div class="avatar avatar--sm tone-c">EO</div>
+    </div>
+
+    <div class="label-row">Empty state</div>
+    <div class="empty-state">
+      <div class="glyph">ø</div>
+      <h4>No opportunities right now.</h4>
+      <p>Quiet weeks happen. Check back after your next busy period - we'll surface regulars worth reaching out to.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       08 - ALERTS & TOASTS
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>08</b> &nbsp; Alerts & toasts</div>
+      <div>
+        <h2>Calm, not alarming.</h2>
+        <p>A toast should feel like a colleague leaning in to mention something. Alerts carry more weight but never shout. Each variant uses the smallest hint of its semantic colour against a cream surface.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:var(--s-3)">
+      <div class="alert alert--info">
+        <div class="icon">i</div>
+        <div>
+          <h4>3 customers are eligible this week.</h4>
+          <p>We'll prepare drafts once you've confirmed your outreach tone in Settings.</p>
+        </div>
+        <button class="close">DISMISS</button>
+      </div>
+      <div class="alert alert--success">
+        <div class="icon">✓</div>
+        <div>
+          <h4>Sarah M came back. $70 recovered.</h4>
+          <p>The message you approved on Monday brought her in last night. Nice one.</p>
+        </div>
+        <button class="close">VIEW</button>
+      </div>
+      <div class="alert alert--warning">
+        <div class="icon">!</div>
+        <div>
+          <h4>POS sync paused 18 hours ago.</h4>
+          <p>We're still showing data, but it's slightly stale. Reconnect Square to get back on track.</p>
+        </div>
+        <button class="close">RECONNECT</button>
+      </div>
+      <div class="alert alert--danger">
+        <div class="icon">!</div>
+        <div>
+          <h4>Emma's draft references a complaint.</h4>
+          <p>This customer left a 1-star review last month. Switch to grievance tone before sending.</p>
+        </div>
+        <button class="close">SWITCH</button>
+      </div>
+    </div>
+
+    <div class="label-row">Toast notifications</div>
+    <div class="toast-shelf">
+      <div class="toast success">
+        <div class="avatar avatar--sm tone-b" style="background:var(--green-tint);color:var(--revenue-green)">✓</div>
+        <div><div class="toast-title">Approved. Ready to send.</div><div class="toast-body">3 messages will go out at 10am tomorrow.</div></div>
+      </div>
+      <div class="toast warning">
+        <div class="avatar avatar--sm" style="background:var(--amber-tint);color:var(--amber-deep)">!</div>
+        <div><div class="toast-title">Draft saved - not yet sent.</div><div class="toast-body">Approve when you're ready.</div></div>
+      </div>
+      <div class="toast error">
+        <div class="avatar avatar--sm" style="background:var(--red-tint);color:var(--recovery-red)">!</div>
+        <div><div class="toast-title">Couldn't reach Stripe.</div><div class="toast-body">Trying again in 30 seconds.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       09 - NAVIGATION
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>09</b> &nbsp; Navigation</div>
+      <div>
+        <h2>Charcoal sidebar, cream room.</h2>
+        <p>The sidebar wears the brand's authority colour so the workspace beside it can breathe. Active items earn a soft green tinge and a thin accent stripe - the only place the colour appears in chrome.</p>
+      </div>
+    </div>
+
+    <div class="nav-demo">
+      <aside class="nav-side">
+        <div class="brand">Regulars<em>.</em></div>
+        <div class="section-label">Today</div>
+        <div class="nav-item active">
+          <div class="nav-icon"></div>
+          <span>Revenue Recovered</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon"></div>
+          <span>Opportunities</span>
+          <span class="nav-count">14</span>
+        </div>
+        <div class="nav-item">
+          <div class="nav-icon"></div>
+          <span>Drafts</span>
+          <span class="nav-count">6</span>
+        </div>
+        <div class="section-label">Customers</div>
+        <div class="nav-item"><div class="nav-icon"></div><span>Customer Memory</span></div>
+        <div class="nav-item"><div class="nav-icon"></div><span>Grievances</span><span class="nav-count" style="background:var(--recovery-red);color:var(--card-cream)">3</span></div>
+        <div class="section-label">Setup</div>
+        <div class="nav-item"><div class="nav-icon"></div><span>Venue Settings</span></div>
+        <div class="nav-item"><div class="nav-icon"></div><span>Integrations</span></div>
+      </aside>
+      <div class="nav-main">
+        <div class="nav-top">
+          <div class="venue">The Wilder, Hackney <span class="sub">Marco · venue owner</span></div>
+          <div class="actions">
+            <div class="search-input" style="width:240px"><input class="input" placeholder="Search customers" /></div>
+            <button class="btn btn--icon" aria-label="notifications">⌗</button>
+            <div class="avatar tone-d">MC</div>
+          </div>
+        </div>
+        <div class="breadcrumb">
+          <a href="#">Dashboard</a><span class="sep">/</span><a href="#">This week</a><span class="sep">/</span><span class="current">Revenue Recovered</span>
+        </div>
+        <div class="nav-content">
+          <span>- main content area -</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       10 - PRODUCT-SPECIFIC: OPPORTUNITY ROW
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>10</b> &nbsp; Opportunity row</div>
+      <div>
+        <h2>The repeating unit of the product.</h2>
+        <p>The Opportunities list is what an operator returns to every morning. Each row pairs a known customer with a quantified ask and a clear next action. Opportunity type is signalled by a quiet vertical accent - not a heavy icon. The estimated value is mono and right-weighted; the badge is the eye-catch.</p>
+      </div>
+    </div>
+
+    <div class="opp-table">
+      <div class="opp-row head">
+        <div>Customer</div>
+        <div>Opportunity</div>
+        <div>Last visit</div>
+        <div>Est. value</div>
+        <div>Status</div>
+        <div></div>
+      </div>
+      <div class="opp-row">
+        <div class="customer-cell">
+          <div class="avatar tone-a">SM</div>
+          <div><div class="name">Sarah Mendez</div><div class="sub">14 visits · regular</div></div>
+        </div>
+        <div class="opp-type lapsed">Lapsed regular</div>
+        <div class="opp-last">8 weeks ago</div>
+        <div class="opp-value">$184</div>
+        <div><span class="badge badge--draft"><span class="dot"></span>Draft Ready</span></div>
+        <button class="btn btn--secondary-green btn--sm review-btn">Review</button>
+      </div>
+      <div class="opp-row">
+        <div class="customer-cell">
+          <div class="avatar tone-b">JR</div>
+          <div><div class="name">James Rourke</div><div class="sub">First visit · party of 2</div></div>
+        </div>
+        <div class="opp-type first-visit">First-visit follow-up</div>
+        <div class="opp-last">10 days ago</div>
+        <div class="opp-value">$96</div>
+        <div><span class="badge badge--ready"><span class="dot"></span>Ready</span></div>
+        <button class="btn btn--secondary-green btn--sm review-btn">Review</button>
+      </div>
+      <div class="opp-row">
+        <div class="customer-cell">
+          <div class="avatar tone-d">TF</div>
+          <div><div class="name">Tom Fielding</div><div class="sub">22 visits · big spender</div></div>
+        </div>
+        <div class="opp-type high-value">High-value lapsing</div>
+        <div class="opp-last">5 weeks ago</div>
+        <div class="opp-value">$420</div>
+        <div><span class="badge badge--approved"><span class="dot"></span>Approved</span></div>
+        <button class="btn btn--ghost btn--sm review-btn">View</button>
+      </div>
+      <div class="opp-row">
+        <div class="customer-cell">
+          <div class="avatar tone-c">EO</div>
+          <div><div class="name">Emma O'Brien</div><div class="sub">6 visits · Fridays</div></div>
+        </div>
+        <div class="opp-type birthday">Birthday week</div>
+        <div class="opp-last">2 weeks ago</div>
+        <div class="opp-value">$140</div>
+        <div><span class="badge badge--sent"><span class="dot"></span>Sent</span></div>
+        <button class="btn btn--ghost btn--sm review-btn">View</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       11 - PRODUCT-SPECIFIC: MESSAGE DRAFT
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>11</b> &nbsp; Message draft panel</div>
+      <div>
+        <h2>The approval moment.</h2>
+        <p>Two columns: the message on the left, the customer's story on the right. The Approve button is the only green CTA. Edit, Send Test, Skip and Mark as Sent sit in calmer treatments. The whole panel should feel considered - never rushed.</p>
+      </div>
+    </div>
+
+    <div class="draft-panel">
+      <div class="draft-main">
+        <dl class="draft-meta">
+          <dt>From</dt><dd>Marco · The Wilder &lt;hello@thewilder.co&gt;</dd>
+          <dt>To</dt><dd>Sarah Mendez &lt;sarah.m@gmail.com&gt;</dd>
+          <dt>Subject</dt><dd class="subject">It's been a little while, Sarah</dd>
+        </dl>
+        <div class="draft-body" contenteditable="true">
+          <p>Hi Sarah,</p>
+          <p>It's been a little while since we've seen you - we noticed you haven't booked in for about eight weeks, and your usual Friday table has been on our minds.</p>
+          <p>This week is a great one to come back: we've just put a new tasting menu on, and your name is at the top of my list. If you'd like, I can hold a 7pm spot for you on Friday.</p>
+          <p class="signature">- Marco</p>
+        </div>
+        <div class="draft-actions">
+          <button class="btn btn--primary">Approve &amp; send</button>
+          <button class="btn btn--secondary">Edit draft</button>
+          <button class="btn btn--ghost">Send test to me</button>
+          <div class="spacer"></div>
+          <button class="btn btn--ghost">Skip</button>
+          <button class="btn btn--secondary btn--sm">Mark as sent</button>
+        </div>
+      </div>
+      <aside class="draft-side">
+        <div class="customer-head">
+          <div class="avatar avatar--lg tone-a">SM</div>
+          <div>
+            <div class="name">Sarah Mendez</div>
+            <div class="sub">Regular since Apr 2024</div>
+          </div>
+        </div>
+        <div class="ctx-rows">
+          <div class="ctx-row"><span class="k">Visits</span><span class="v mono">14</span></div>
+          <div class="ctx-row"><span class="k">Avg spend</span><span class="v mono">$92</span></div>
+          <div class="ctx-row"><span class="k">Last visit</span><span class="v">8 weeks ago</span></div>
+          <div class="ctx-row"><span class="k">Est. value</span><span class="v mono green">$184</span></div>
+          <div class="ctx-row"><span class="k">Usual</span><span class="v">Fri 7pm · party of 2</span></div>
+        </div>
+        <hr class="divider" style="margin: var(--s-3) 0" />
+        <div>
+          <div class="t-label" style="margin-bottom: 8px">Tone</div>
+          <span class="tone-pill"><span class="dot"></span>Warm &amp; familiar</span>
+        </div>
+        <div>
+          <div class="t-label" style="margin-bottom: 8px">Notes</div>
+          <p style="font-family:var(--font-ui);font-size:13px;color:var(--charcoal-soft);margin:0;line-height:1.55">Prefers a quiet two-top by the window. Husband's birthday was last week.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       12 - PRODUCT-SPECIFIC: GRIEVANCE CARD
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>12</b> &nbsp; Grievance card</div>
+      <div>
+        <h2>A different emotional register.</h2>
+        <p>A grievance card is not an opportunity card with a red badge - it has its own treatment. The accent is a single thin red rule on the left; the customer's words sit in a quiet quoted block to remind the operator a person wrote them. Actions are quieter - nothing is "approved" here, it's offered.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:var(--s-3)">
+      <div class="grievance-card">
+        <div>
+          <div class="top">
+            <div class="avatar tone-e">PL</div>
+            <div class="name">Priya Laksmi</div>
+            <span class="badge badge--care"><span class="dot"></span>Needs Care</span>
+            <span class="meta">Party of 4 · 1 week ago</span>
+          </div>
+          <p class="quote">"Service was extremely slow and our mains came out cold. We waited 40 minutes for water. We had been looking forward to this dinner for weeks."</p>
+          <div class="timing">From Google review · 2 stars · est. value to recover <b style="color:var(--charcoal);font-family:var(--font-mono)">$140</b></div>
+        </div>
+        <div class="actions">
+          <button class="btn btn--secondary btn--sm">Draft response</button>
+          <button class="btn btn--ghost btn--sm">Skip</button>
+        </div>
+      </div>
+      <div class="grievance-card" style="border-left-color:var(--amber-deep)">
+        <div>
+          <div class="top">
+            <div class="avatar tone-d">TM</div>
+            <div class="name">Tom Mercer</div>
+            <span class="badge badge--contacted"><span class="dot"></span>Contacted</span>
+            <span class="meta">Booking issue · 3 days ago</span>
+          </div>
+          <p class="quote">"I had a reservation at 8 and was told there was no record of it when I arrived with my partner."</p>
+          <div class="timing">From email · awaiting reply · <b style="color:var(--charcoal);font-family:var(--font-mono)">draft sent Tue 14:02</b></div>
+        </div>
+        <div class="actions">
+          <button class="btn btn--ghost btn--sm">View thread</button>
+        </div>
+      </div>
+      <div class="grievance-card" style="border-left-color:var(--revenue-green)">
+        <div>
+          <div class="top">
+            <div class="avatar tone-b">JD</div>
+            <div class="name">Jamie Devine</div>
+            <span class="badge badge--resolved"><span class="dot"></span>Resolved</span>
+            <span class="meta">Came back as our guest · last Saturday</span>
+          </div>
+          <p class="quote">"Honestly, I appreciated the message. We'll be back."</p>
+          <div class="timing">Relationship repaired · <b style="color:var(--revenue-green);font-family:var(--font-mono)">$210 recovered</b></div>
+        </div>
+        <div class="actions">
+          <button class="btn btn--ghost btn--sm">View history</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       13 - MOTION
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>13</b> &nbsp; Motion</div>
+      <div>
+        <h2>Considered, smooth, never flashy.</h2>
+        <p>Animation reduces friction and guides attention. It never performs. The dashboard's revenue counter is the one allowed moment of delight - a deliberate count-up that lets the operator <em>feel</em> the win.</p>
+      </div>
+    </div>
+
+    <div class="label-row">Duration scale</div>
+    <div class="motion-grid">
+      <div class="motion-card"><b>Instant</b><div class="val">0ms</div><div class="meta">state flips</div></div>
+      <div class="motion-card"><b>Fast</b><div class="val">100ms</div><div class="meta">hover · press</div></div>
+      <div class="motion-card"><b>Normal</b><div class="val">200ms</div><div class="meta">toggles · tabs</div></div>
+      <div class="motion-card"><b>Slow</b><div class="val">300ms</div><div class="meta">modals · sidebars</div></div>
+      <div class="motion-card"><b>Deliberate</b><div class="val">400ms</div><div class="meta">stat counter</div></div>
+    </div>
+
+    <div class="label-row">Easing curves</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4)">
+      <div class="card">
+        <div class="t-label" style="margin-bottom:8px">Standard</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--charcoal)">cubic-bezier(0.32, 0.08, 0.24, 1)</div>
+        <p style="font-size:13px;color:var(--muted-text);margin:var(--s-3) 0 0">Default for hover, focus, colour change.</p>
+      </div>
+      <div class="card">
+        <div class="t-label" style="margin-bottom:8px">Entrance</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--charcoal)">cubic-bezier(0.16, 0.84, 0.44, 1)</div>
+        <p style="font-size:13px;color:var(--muted-text);margin:var(--s-3) 0 0">Toast in, modal open, stat reveal.</p>
+      </div>
+      <div class="card">
+        <div class="t-label" style="margin-bottom:8px">Exit</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--charcoal)">cubic-bezier(0.4, 0, 0.6, 1)</div>
+        <p style="font-size:13px;color:var(--muted-text);margin:var(--s-3) 0 0">Toast out, modal close, dismissals.</p>
+      </div>
+    </div>
+
+    <div class="label-row">Stat counter - the one moment of delight</div>
+    <div class="counter-demo">
+      <div>
+        <span class="lbl">Recovered this week</span>
+        <div class="val"><span class="currency">$</span><span id="counter">0</span></div>
+      </div>
+      <p style="margin:0;max-width:32ch;font-size:13px;color:var(--muted-text)">On dashboard load, the revenue figure counts from <span class="t-mono" style="font-size:13px">$0</span> to its true value over <b>1400ms</b> with deliberate easing. It happens once per session. Never on re-renders.</p>
+      <button class="btn btn--secondary-green" id="play-counter">Play animation</button>
+    </div>
+
+    <div class="label-row">Specific component motion</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)">
+      <div class="card" style="font-size:13px"><b style="font-family:var(--font-display);font-size:16px;font-weight:500;display:block;margin-bottom:4px">Table row hover</b><span style="color:var(--muted-text)">Background fade - Fast (100ms) · Standard easing. No transform.</span></div>
+      <div class="card" style="font-size:13px"><b style="font-family:var(--font-display);font-size:16px;font-weight:500;display:block;margin-bottom:4px">Button press</b><span style="color:var(--muted-text)">Instant background shift, 0.5px down. No bounce.</span></div>
+      <div class="card" style="font-size:13px"><b style="font-family:var(--font-display);font-size:16px;font-weight:500;display:block;margin-bottom:4px">Badge state change</b><span style="color:var(--muted-text)">Cross-fade colours over Normal (200ms). Never resize.</span></div>
+      <div class="card" style="font-size:13px"><b style="font-family:var(--font-display);font-size:16px;font-weight:500;display:block;margin-bottom:4px">Sidebar collapse</b><span style="color:var(--muted-text)">Width animates Slow (300ms) with Standard easing.</span></div>
+      <div class="card" style="font-size:13px"><b style="font-family:var(--font-display);font-size:16px;font-weight:500;display:block;margin-bottom:4px">Toast entrance/exit</b><span style="color:var(--muted-text)">Slide 12px from right + fade · Normal in, Fast out.</span></div>
+      <div class="card" style="font-size:13px"><b style="font-family:var(--font-display);font-size:16px;font-weight:500;display:block;margin-bottom:4px">Modal open/close</b><span style="color:var(--muted-text)">Backdrop fades Slow; modal scales 0.98→1 + fades · Entrance easing.</span></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       14 - VOICE
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>14</b> &nbsp; Voice</div>
+      <div>
+        <h2>Three voices, one venue.</h2>
+        <p>The product writes on behalf of the venue - so tone is a feature, not a style guide. UI speaks like a capable colleague. Standard outreach is warm and unhurried. Grievance recovery is careful, human, and never automated-feeling.</p>
+      </div>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card ui">
+        <div class="voice-head">
+          <div class="voice-mark">i</div>
+          <h3>Product UI</h3>
+        </div>
+        <p class="desc">How the interface speaks to the operator. Smart, warm, direct. Like a colleague who knows the industry.</p>
+        <div class="ex-label">EMPTY STATE</div>
+        <blockquote>No opportunities right now - check back after your next busy period.</blockquote>
+        <div class="ex-label">AFTER APPROVAL</div>
+        <blockquote>Approved. Ready to send when you are.</blockquote>
+        <div class="ex-label">REVENUE EVENT</div>
+        <blockquote>Sarah M came back. $70 recovered.</blockquote>
+        <div class="ex-label">BLOCKING DECISION</div>
+        <blockquote>We need a couple of answers before we can start. No rush - just flag these with your team.</blockquote>
+      </div>
+
+      <div class="voice-card standard">
+        <div class="voice-head">
+          <div class="voice-mark">w</div>
+          <h3>Standard outreach</h3>
+        </div>
+        <p class="desc">Default tone for re-engagement. Warm, genuine, no pressure. The venue speaks for itself.</p>
+        <div class="ex-label">LAPSED REGULAR</div>
+        <blockquote>Hi Sarah, it's been a little while since we've seen you. We'd love to welcome you back - this week is a great time to book in.</blockquote>
+        <div class="ex-label">FIRST-VISIT FOLLOW-UP</div>
+        <blockquote>James, your first visit meant a lot to us. We hope to see you again soon.</blockquote>
+      </div>
+
+      <div class="voice-card grievance">
+        <div class="voice-head">
+          <div class="voice-mark">r</div>
+          <h3>Grievance recovery</h3>
+        </div>
+        <p class="desc">Carefully different. Human, apologetic where appropriate. Never salesy. Must feel like a real person wrote it.</p>
+        <div class="ex-label">RESPONSE TO A COMPLAINT</div>
+        <blockquote>Hi Emma, I wanted to reach out personally about your recent experience with us. What you described isn't the standard we hold ourselves to, and I'm sorry.</blockquote>
+        <div class="ex-label">MAKING IT RIGHT</div>
+        <blockquote>Tom, I heard about the issue with your booking last week. I'd love the chance to make it right - please let me know if you're open to coming back as our guest.</blockquote>
+      </div>
+    </div>
+
+    <div class="label-row">Tone rules - at a glance</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-4)">
+      <div class="card">
+        <div class="t-label" style="margin-bottom:6px">Always</div>
+        <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--charcoal);line-height:1.7">
+          <li>First-name address</li>
+          <li>One clear ask per message</li>
+          <li>Specific, not generic ("Friday at 7" not "soon")</li>
+          <li>The venue's actual signature</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t-label" style="margin-bottom:6px">Never</div>
+        <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--charcoal);line-height:1.7">
+          <li>Exclamation marks (except in success toasts)</li>
+          <li>Marketing words: "exclusive", "limited", "miss out"</li>
+          <li>Emoji in any outbound message</li>
+          <li>"Dear" or "valued customer"</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="t-label" style="margin-bottom:6px">Sometimes</div>
+        <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--charcoal);line-height:1.7">
+          <li>A specific menu reference (if the operator opted in)</li>
+          <li>"Your usual" - if the customer has one</li>
+          <li>A held table offer - for high-value regulars</li>
+          <li>An apology - only in grievance flows</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>Regulars · Design System · v1</div>
+    <div>Phase 1 of 3 - next: Marketing site · Product</div>
+  </footer>
+
+</main>
+
+<script>
+// One moment of delight: the counter demo
+(function(){
+  const btn = document.getElementById('play-counter');
+  const out = document.getElementById('counter');
+  if(!btn || !out) return;
+  const target = 4820;
+  function play(){
+    const start = performance.now();
+    const dur = 1400;
+    // easing: deliberate (entrance)
+    function ease(t){ return 1 - Math.pow(1 - t, 3); }
+    function frame(now){
+      const t = Math.min(1, (now - start) / dur);
+      const v = Math.round(target * ease(t));
+      out.textContent = v.toLocaleString();
+      if(t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  // play once on load
+  play();
+  btn.addEventListener('click', () => { out.textContent = '0'; setTimeout(play, 60); });
+})();
+</script>
+</body>
+</html>
