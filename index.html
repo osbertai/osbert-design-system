@@ -958,12 +958,12 @@ table.data td .mono { font-family: var(--font-mono); font-variant-numeric: tabul
   padding-left: 10px;
 }
 .nav-item .nav-icon {
-  width: 14px; height: 14px;
-  border-radius: 3px;
-  border: 1.5px solid currentColor;
+  width: 15px; height: 15px;
   opacity: 0.7;
   flex-shrink: 0;
 }
+.nav-item .nav-icon svg { width: 100%; height: 100%; display: block; }
+.nav-item.active .nav-icon, .nav-item:hover .nav-icon { opacity: 1; }
 .nav-item .nav-count {
   margin-left: auto;
   font-family: var(--font-mono);
@@ -1340,6 +1340,31 @@ table.data td .mono { font-family: var(--font-mono); font-variant-numeric: tabul
   color: var(--muted-text);
   text-transform: uppercase;
 }
+
+/* ---- 04 · Iconography ---- */
+.icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.icon-cell {
+  background: var(--card-cream); border: 1px solid var(--soft-border);
+  border-radius: var(--r-3); padding: 16px 10px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+}
+.icon-cell svg { color: var(--charcoal); }
+.icon-cell .iname { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted-text); }
+.icon-sizes {
+  display: flex; align-items: flex-end; gap: 44px;
+  background: var(--card-cream); border: 1px solid var(--soft-border);
+  border-radius: var(--r-4); padding: 24px 28px 18px;
+}
+.icon-size-demo { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.icon-size-demo svg { color: var(--charcoal); }
+.icon-size-demo .meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted-text); text-align: center; line-height: 1.5; }
+.icon-rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.icon-rule {
+  background: var(--card-cream); border: 1px solid var(--soft-border);
+  border-radius: var(--r-3); padding: 14px 16px;
+  font-size: 13px; color: var(--charcoal-soft); line-height: 1.55;
+}
+.icon-rule b { display: block; font-size: 12.5px; color: var(--charcoal); margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -1573,11 +1598,65 @@ table.data td .mono { font-family: var(--font-mono); font-variant-numeric: tabul
   </section>
 
   <!-- ============================================================
-       04 - BUTTONS
+       04 - ICONOGRAPHY
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>04</b> &nbsp; Buttons</div>
+      <div class="num"><b>04</b> &nbsp; Iconography</div>
+      <div>
+        <h2>One line weight, one library.</h2>
+        <p>Every icon in Osbert comes from <b>Lucide</b> (lucide.dev) - a single stroke-drawn set rendered at a 2px line weight in <b>currentColor</b>. Icons mark actions, states and places - never decoration. In the app they render exclusively through the shared <b>&lt;ob-icon&gt;</b> component, which owns the registry: if an icon isn't registered there, it isn't in the product.</p>
+      </div>
+    </div>
+
+    <div class="label-row">Registered set · lucide.dev</div>
+    <div class="icon-grid">
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div class="iname">house</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg><div class="iname">list</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.364 13.634a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506l4.013-4.009a1 1 0 0 0-3.004-3.004z"/><path d="M14.487 7.858A1 1 0 0 1 14 7V2"/><path d="M20 19.645V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l2.516 2.516"/><path d="M8 18h1"/></svg><div class="iname">file-pen-line</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg><div class="iname">heart-pulse</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg><div class="iname">users</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg><div class="iname">users-round</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M12 15h.01"/><path d="M12 7v4"/></svg><div class="iname">message-square-warning</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"/></svg><div class="iname">messages-square</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg><div class="iname">settings</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></svg><div class="iname">plug</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><div class="iname">circle-check</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg><div class="iname">circle-alert</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg><div class="iname">circle-x</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><div class="iname">info</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg><div class="iname">upload</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13v8"/><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="m8 17 4-4 4 4"/></svg><div class="iname">cloud-upload</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg><div class="iname">plus</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg><div class="iname">refresh-cw</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg><div class="iname">loader-circle</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg><div class="iname">arrow-left</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><div class="iname">arrow-right</div></div>
+      <div class="icon-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg><div class="iname">log-out</div></div>
+    </div>
+
+    <div class="label-row">Sizes</div>
+    <div class="icon-sizes">
+      <div class="icon-size-demo"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><div class="meta">13 · --icon-sm<br>buttons · inline text</div></div>
+      <div class="icon-size-demo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><div class="meta">16 · --icon-md<br>default · nav · alerts</div></div>
+      <div class="icon-size-demo"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><div class="meta">24 · --icon-lg<br>empty states</div></div>
+      <div class="icon-size-demo"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><div class="meta">48 · --icon-hero<br>result screens</div></div>
+    </div>
+
+    <div class="label-row">Rules</div>
+    <div class="icon-rules">
+      <div class="icon-rule"><b>Stroke, never fill.</b>2px line weight at every size. No filled, duotone or emoji variants - one voice.</div>
+      <div class="icon-rule"><b>currentColor only.</b>Icons inherit the colour of the text beside them. Never give an icon a colour its label doesn't have.</div>
+      <div class="icon-rule"><b>Through &lt;ob-icon&gt;, always.</b>Feature code never imports Lucide directly. New icons are added to the registry in shared/components/icon.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       05 - BUTTONS
+       ============================================================ -->
+  <section class="block">
+    <div class="section-head">
+      <div class="num"><b>05</b> &nbsp; Buttons</div>
       <div>
         <h2>One green action per screen.</h2>
         <p>Primary is reserved for the moment that earns revenue: <em>Approve</em>, <em>Connect</em>, <em>Save</em>. Secondary carries everything else. Ghost lives in tables and rows. Destructive earns its red.</p>
@@ -1633,11 +1712,11 @@ table.data td .mono { font-family: var(--font-mono); font-variant-numeric: tabul
   </section>
 
   <!-- ============================================================
-       05 - FORM ELEMENTS
+       06 - FORM ELEMENTS
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>05</b> &nbsp; Forms</div>
+      <div class="num"><b>06</b> &nbsp; Forms</div>
       <div>
         <h2>Quiet inputs that get out of the way.</h2>
         <p>Operators read fast and type carefully. Inputs are warm-grey by default, lean charcoal on hover, and earn a green focus ring only when they're active. The textarea matters most - it is where a message gets edited before it goes out.</p>
@@ -1713,11 +1792,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       06 - STATUS BADGES
+       07 - STATUS BADGES
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>06</b> &nbsp; Status badges</div>
+      <div class="num"><b>07</b> &nbsp; Status badges</div>
       <div>
         <h2>The colour-coded language of the queue.</h2>
         <p>Operators scan these constantly. Each status earns a colour for a reason - amber moves toward action, green walks the journey from approval to return, red flags the careful work, neutral steps back. The strongest treatment is reserved for the moment a customer comes back.</p>
@@ -1739,11 +1818,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       07 - DATA DISPLAY
+       08 - DATA DISPLAY
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>07</b> &nbsp; Data display</div>
+      <div class="num"><b>08</b> &nbsp; Data display</div>
       <div>
         <h2>The hero stat, the dense table, the empty room.</h2>
         <p>The Revenue Recovered card is the centrepiece. Tables are quiet by default and earn their hover. Avatars warm up customer records without being clinical. Empty states encourage - they never feel broken.</p>
@@ -1878,11 +1957,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       08 - ALERTS & TOASTS
+       09 - ALERTS & TOASTS
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>08</b> &nbsp; Alerts & toasts</div>
+      <div class="num"><b>09</b> &nbsp; Alerts & toasts</div>
       <div>
         <h2>Calm, not alarming.</h2>
         <p>A toast should feel like a colleague leaning in to mention something. Alerts carry more weight but never shout. Each variant uses the smallest hint of its semantic colour against a cream surface.</p>
@@ -1942,11 +2021,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       09 - NAVIGATION
+       10 - NAVIGATION
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>09</b> &nbsp; Navigation</div>
+      <div class="num"><b>10</b> &nbsp; Navigation</div>
       <div>
         <h2>Charcoal sidebar, cream room.</h2>
         <p>The sidebar wears the brand's authority colour so the workspace beside it can breathe. Active items earn a soft green tinge and a thin accent stripe - the only place the colour appears in chrome.</p>
@@ -1958,25 +2037,25 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
         <div class="brand">Osbert<em>.</em></div>
         <div class="section-label">Today</div>
         <div class="nav-item active">
-          <div class="nav-icon"></div>
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
           <span>Revenue Recovered</span>
         </div>
         <div class="nav-item">
-          <div class="nav-icon"></div>
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01"/><path d="M3 12h.01"/><path d="M3 19h.01"/><path d="M8 5h13"/><path d="M8 12h13"/><path d="M8 19h13"/></svg></div>
           <span>Opportunities</span>
           <span class="nav-count">14</span>
         </div>
         <div class="nav-item">
-          <div class="nav-icon"></div>
+          <div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.364 13.634a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506l4.013-4.009a1 1 0 0 0-3.004-3.004z"/><path d="M14.487 7.858A1 1 0 0 1 14 7V2"/><path d="M20 19.645V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l2.516 2.516"/><path d="M8 18h1"/></svg></div>
           <span>Drafts</span>
           <span class="nav-count">6</span>
         </div>
         <div class="section-label">Customers</div>
-        <div class="nav-item"><div class="nav-icon"></div><span>Customer Memory</span></div>
-        <div class="nav-item"><div class="nav-icon"></div><span>Grievances</span><span class="nav-count" style="background:var(--recovery-red);color:var(--card-cream)">3</span></div>
+        <div class="nav-item"><div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg></div><span>Customer Memory</span></div>
+        <div class="nav-item"><div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/><path d="M12 15h.01"/><path d="M12 7v4"/></svg></div><span>Grievances</span><span class="nav-count" style="background:var(--recovery-red);color:var(--card-cream)">3</span></div>
         <div class="section-label">Setup</div>
-        <div class="nav-item"><div class="nav-icon"></div><span>Venue Settings</span></div>
-        <div class="nav-item"><div class="nav-icon"></div><span>Integrations</span></div>
+        <div class="nav-item"><div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg></div><span>Venue Settings</span></div>
+        <div class="nav-item"><div class="nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M15 8V2"/><path d="M17 8a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M9 8V2"/></svg></div><span>Integrations</span></div>
       </aside>
       <div class="nav-main">
         <div class="nav-top">
@@ -1998,11 +2077,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       10 - PRODUCT-SPECIFIC: OPPORTUNITY ROW
+       11 - PRODUCT-SPECIFIC: OPPORTUNITY ROW
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>10</b> &nbsp; Opportunity row</div>
+      <div class="num"><b>11</b> &nbsp; Opportunity row</div>
       <div>
         <h2>The repeating unit of the product.</h2>
         <p>The Opportunities list is what an operator returns to every morning. Each row pairs a known customer with a quantified ask and a clear next action. Opportunity type is signalled by a quiet vertical accent - not a heavy icon. The estimated value is mono and right-weighted; the badge is the eye-catch.</p>
@@ -2066,11 +2145,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       11 - PRODUCT-SPECIFIC: MESSAGE DRAFT
+       12 - PRODUCT-SPECIFIC: MESSAGE DRAFT
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>11</b> &nbsp; Message draft panel</div>
+      <div class="num"><b>12</b> &nbsp; Message draft panel</div>
       <div>
         <h2>The approval moment.</h2>
         <p>Two columns: the message on the left, the customer's story on the right. The Approve button is the only green CTA. Edit, Send Test, Skip and Mark as Sent sit in calmer treatments. The whole panel should feel considered - never rushed.</p>
@@ -2128,11 +2207,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       12 - PRODUCT-SPECIFIC: GRIEVANCE CARD
+       13 - PRODUCT-SPECIFIC: GRIEVANCE CARD
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>12</b> &nbsp; Grievance card</div>
+      <div class="num"><b>13</b> &nbsp; Grievance card</div>
       <div>
         <h2>A different emotional register.</h2>
         <p>A grievance card is not an opportunity card with a red badge - it has its own treatment. The accent is a single thin red rule on the left; the customer's words sit in a quiet quoted block to remind the operator a person wrote them. Actions are quieter - nothing is "approved" here, it's offered.</p>
@@ -2190,11 +2269,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       13 - MOTION
+       14 - MOTION
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>13</b> &nbsp; Motion</div>
+      <div class="num"><b>14</b> &nbsp; Motion</div>
       <div>
         <h2>Considered, smooth, never flashy.</h2>
         <p>Animation reduces friction and guides attention. It never performs. The dashboard's revenue counter is the one allowed moment of delight - a deliberate count-up that lets the operator <em>feel</em> the win.</p>
@@ -2251,11 +2330,11 @@ It's been a little while since we've seen you. We'd love to welcome you back - t
   </section>
 
   <!-- ============================================================
-       14 - VOICE
+       15 - VOICE
        ============================================================ -->
   <section class="block">
     <div class="section-head">
-      <div class="num"><b>14</b> &nbsp; Voice</div>
+      <div class="num"><b>15</b> &nbsp; Voice</div>
       <div>
         <h2>Three voices, one venue.</h2>
         <p>The product writes on behalf of the venue - so tone is a feature, not a style guide. UI speaks like a capable colleague. Standard outreach is warm and unhurried. Grievance recovery is careful, human, and never automated-feeling.</p>
